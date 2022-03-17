@@ -72,6 +72,10 @@ export class ResultTableGuidelinesComponent {
             })
         );
     }
+
+    onSort(e: any) {
+        console.log('sorting', e);
+    }
 }
 
 interface OrderDataModel {

@@ -19,12 +19,12 @@
             </select>
         </div>
         <div class="example">
-            <mz-result-table [model]="defaultModel$ | async" [loading]="defaultLoadingState.loading" [error]="defaultLoadingState.error" [header]="headerTemplate" [body]="bodyTemplate"
+            <mz-result-table mzSortable="-customer" (sort)="onSort($event)" [model]="defaultModel$ | async" [loading]="defaultLoadingState.loading" [error]="defaultLoadingState.error" [header]="headerTemplate" [body]="bodyTemplate"
                 (pageChange)="onPageChange($event)">
                 <ng-template #headerTemplate>
                     <tr>
-                        <th>Order</th>
-                        <th>Customer</th>
+                        <th mzSort="'order'">Order</th>
+                        <th mzSort="customer">Customer</th>
                         <th>Status</th>
                         <th>Date</th>
                         <th>Total</th>
