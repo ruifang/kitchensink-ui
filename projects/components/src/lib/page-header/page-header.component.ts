@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 @Component({
+    standalone: true,
     selector: 'mz-page-header',
     templateUrl: './page-header.component.html',
     styleUrls: ['./page-header.component.scss'],

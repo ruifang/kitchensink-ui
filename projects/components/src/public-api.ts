@@ -28,7 +28,7 @@ export * from './lib/result-table/result-table.model';
 export * from './lib/time-value-validator.directive';
 export * from './lib/time-value-accessor.directive';
 
-// Datetime
+// datetime
 export {
   MuziehDateTimeModule,
   DateTimeComponent,
