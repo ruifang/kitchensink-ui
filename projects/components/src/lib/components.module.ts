@@ -27,7 +27,6 @@ import { SubjectDisplayPipe } from './subject-display/subject-display.pipe';
     ResultTableComponent,
     PaginationComponent,
     PageLoadingIndicatorComponent,
-    PageHeaderComponent,
     TimeValueAccessorDirective,
     DateDisplayPipe,
     PhoneNumberPipe,
@@ -41,6 +40,7 @@ import { SubjectDisplayPipe } from './subject-display/subject-display.pipe';
     CommonModule,
     MatDatepickerModule,
     FormsModule,
+    PageHeaderComponent,
   ],
   exports: [
     EnumDisplayPipe,
