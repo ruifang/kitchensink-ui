@@ -6,6 +6,7 @@ import { EmbedDirective } from './embed.directive';
 import { HighlightModule } from 'ngx-highlightjs';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatTabsModule} from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [DemoContainerComponent, EmbedDirective],
