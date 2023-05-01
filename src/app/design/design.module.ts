@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DesignRoutingModule } from './design-routing.module';
 import { DesignComponent } from './design.component';
@@ -45,7 +45,7 @@ import { ModalAddOrderComponent } from './modal-add-order/modal-add-order.compon
 import { MatNativeDateModule } from '@angular/material/core';
 import { MuziehDateTimeModule } from 'muzieh-ngcomponents';
 import { AddressFormComponent } from './address-form/address-form.component';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
