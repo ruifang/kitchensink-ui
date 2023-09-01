@@ -9,50 +9,28 @@ general:
 
 orbs: 
   browser-tools: circleci/browser-tools@1.4.4
-  jobs:
-    test:
-      steps:
-        - browser-tools/install-browser-tools:
-            chrome-version: 116.0.5845.96
-            replace-existing-chrome: true
-            # TODO: remove until: https://github.com/CircleCI-Public/browser-tools-orb/issues/75
+  node: circleci/node@5.1.0
 
-
-defaults: &defaults
-  docker:
-    - image: cimg/node:17.6.0-browsers
-      environment:
-        CHROME_BIN: /usr/bin/google-chrome
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
-    #docker:
-    #  - image: circleci/node
-    <<: *defaults
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+  build:
+    working_directory: ~/kitchensink-ui
+    docker: 
+      - image: cimg/node:18.6.1-browsers
     steps:
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
-  test:
-    <<: *defaults
-    steps:
-      - checkout
       - browser-tools/install-browser-tools:
           chrome-version: 116.0.5845.96
           replace-existing-chrome: true
-      - run: npm ci
-      - run: npm run ng -- test components 
-  build:
-    <<: *defaults
-    steps:
       - checkout
-      #- run: npm run lint
+      - run: npm ci
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - run: npm run ng -- build components
+      - run: npm run ng -- test components
       - run:
           name: "version"
           command: |
@@ -62,8 +40,6 @@ jobs:
           command: |
             sh ./../../version.sh ${CIRCLE_BUILD_NUM} ${CIRCLE_BRANCH}
           working_directory: ./projects/components
-      - run: npm ci
-      - run: npm run ng -- build components
       - run: npm run build
       - run: cp -r ./src/styles/design ./dist/components/design
       - store_artifacts:
@@ -74,7 +50,9 @@ jobs:
           paths:
             - dist
   publish:
-    <<: *defaults
+    working_directory: ~/kitchensink-ui
+    docker: 
+      - image: cimg/node:17.6.0-browsers
     steps:
       - attach_workspace:
           at: .
@@ -115,20 +93,13 @@ jobs:
 workflows:
   publish:
     jobs:
-      - say-hello:
+      - build:
           filters:
             branches:
               ignore:
                 - gh-pages
-      - test:
-          requires:
-            - say-hello
-      - build:
-          requires:
-            - say-hello
       - publish:
           requires:
-            - test
             - build
 
       
